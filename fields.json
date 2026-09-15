@@ -29,16 +29,39 @@
   "item19PinCount": 60,
   "hq_source": "fdd-item-1 (FDD Item 1, p.1)",
   "risk_score": 42,
-  "risk_components": {
-    "base": 50,
-    "capital_ceiling": 5,
-    "fee_burden": 5,
-    "seasonality": 0,
-    "no_litigation": -10,
-    "zero_terminations": -5,
-    "unit_growth": -3
-  },
-  "risk_method": "base 50; capital_ceiling +5 (investment max $234,866 >= $200k threshold; +10 if >= $750k); fee_burden +5 (royalty max 12% + brand fund max 3% = 15% >= 12% threshold); seasonality +0 (FDD Item 1: not seasonal); no_litigation -10 (Items 3-4 none); zero_terminations -5 (0 terminations but 4 ceased ops 2022-2024 -> partial credit); unit_growth -3 (US outlets 53 -> 54, 2022-2024, positive but < 10%). 50+5+5+0-10-5-3 = 42.",
+  "risk_components": [
+    {
+      "name": "capital_ceiling",
+      "weight": 5,
+      "note": "investment max $234,866 >= $200k threshold; +10 if >= $750k"
+    },
+    {
+      "name": "fee_burden",
+      "weight": 5,
+      "note": "royalty max 12% + brand fund max 3% = 15% >= 12% threshold"
+    },
+    {
+      "name": "seasonality",
+      "weight": 0,
+      "note": "FDD Item 1: not seasonal"
+    },
+    {
+      "name": "no_litigation",
+      "weight": -10,
+      "note": "FDD Items 3-4: none"
+    },
+    {
+      "name": "zero_terminations",
+      "weight": -5,
+      "note": "0 terminations but 4 ceased ops 2022-2024 -> partial credit"
+    },
+    {
+      "name": "unit_growth",
+      "weight": -3,
+      "note": "US outlets 53 -> 54, 2022-2024, positive but < 10%"
+    }
+  ],
+  "risk_method": "base 50 + capital_ceiling 5 + fee_burden 5 seasonality 0 - no_litigation 10 - zero_terminations 5 - unit_growth 3 = 42",
   "pins": [
     {
       "city": "Randolph",
@@ -424,11 +447,12 @@
   "liquidCapitalRequirement": "not disclosed in FDD",
   "liquidCapitalRequirementNote": "grep of fdd.txt: 'liquid capital'=0, 'liquid-capital'=0, 'liquidcapital'=0, 'liquid assets'=0 \u2014 genuinely absent in FDD",
   "pinVerification": {
-    "method": "Nominatim forward-geocode per pin (query A: informal city query; query B: structured city/state/country). Pin placed at query-A coordinate; verification = haversine(query-A, query-B) must be <= 50 km. Sleep >=1.2s between requests; User-Agent 'FKI-MapKI/1.0'.",
-    "run_at": "2026-09-14T17:35:40Z",
+    "method": "D4-08 per-pin re-verification: independent Nominatim forward-geocode of each pin's (city, state); haversine vs stored plotted coords; 50km tolerance",
+    "run_utc": "2026-09-15T01:38:47.467564+00:00",
     "pins_total": 12,
     "pins_verified": 12,
     "pins_mismatch": 0,
+    "pins_unverifiable": 0,
     "all_verified": true,
     "per_pin": [
       {
@@ -439,16 +463,13 @@
           42.162602,
           -71.041339
         ],
-        "hq": true,
-        "verify_query": "Randolph, Massachusetts, United States",
-        "verify_coords": [
+        "geocoded": [
           42.162602,
           -71.041339
         ],
+        "geocode_query": "Randolph, Massachusetts, United States",
         "distance_km": 0.0,
-        "us_bounds_ok": true,
-        "status": "VERIFIED",
-        "address_source": "FDD Exhibit C franchisee address: 358 North Street, Randolph, MA 02368 (FDD Item 1, p.1) \u2014 franchisor HQ"
+        "status": "VERIFIED"
       },
       {
         "pin": 1,
@@ -458,16 +479,13 @@
           33.520682,
           -86.802433
         ],
-        "hq": false,
-        "verify_query": "Birmingham, Alabama, United States",
-        "verify_coords": [
+        "geocoded": [
           33.520682,
           -86.802433
         ],
+        "geocode_query": "Birmingham, Alabama, United States",
         "distance_km": 0.0,
-        "us_bounds_ok": true,
-        "status": "VERIFIED",
-        "address_source": "FDD Exhibit C franchisee address: 300 Vestavia Parkway, Birmingham, AL 35216 (FDD Exhibit C)"
+        "status": "VERIFIED"
       },
       {
         "pin": 2,
@@ -477,16 +495,13 @@
           34.06965,
           -118.396306
         ],
-        "hq": false,
-        "verify_query": "Beverly Hills, California, United States",
-        "verify_coords": [
+        "geocoded": [
           34.06965,
           -118.396306
         ],
+        "geocode_query": "Beverly Hills, California, United States",
         "distance_km": 0.0,
-        "us_bounds_ok": true,
-        "status": "VERIFIED",
-        "address_source": "FDD Exhibit C franchisee address: 264 South Palm Drive, Beverly Hills, CA 90210 (FDD Exhibit C)"
+        "status": "VERIFIED"
       },
       {
         "pin": 3,
@@ -496,15 +511,13 @@
           39.444572,
           -105.481199
         ],
-        "verify_query": "ZIP 80470, United States (structured city/state query missed; fallback to postalcode)",
-        "verify_coords": [
-          39.421659,
-          -105.33524
+        "geocoded": [
+          39.444572,
+          -105.481199
         ],
-        "distance_km": 12.79,
-        "us_bounds_ok": true,
-        "status": "VERIFIED",
-        "address_source": "FDD Exhibit C franchisee address: 95 Navajo Trail, Pine, CO 80470; structured Nominatim city/state query returned no result, re-verified against ZIP 80470 centroid"
+        "geocode_query": "Pine, Colorado, United States",
+        "distance_km": 0.0,
+        "status": "VERIFIED"
       },
       {
         "pin": 4,
@@ -514,16 +527,13 @@
           39.158168,
           -75.524368
         ],
-        "hq": false,
-        "verify_query": "Dover, Delaware, United States",
-        "verify_coords": [
+        "geocoded": [
           39.158168,
           -75.524368
         ],
+        "geocode_query": "Dover, Delaware, United States",
         "distance_km": 0.0,
-        "us_bounds_ok": true,
-        "status": "VERIFIED",
-        "address_source": "FDD Exhibit C franchisee address: Dover (Amramp Delaware) territory, FDD Exhibit C; outlet address 16 Trout Run Drive, Media, PA 19063"
+        "status": "VERIFIED"
       },
       {
         "pin": 5,
@@ -533,16 +543,13 @@
           30.438083,
           -84.280933
         ],
-        "hq": false,
-        "verify_query": "Tallahassee, Florida, United States",
-        "verify_coords": [
+        "geocoded": [
           30.438083,
           -84.280933
         ],
+        "geocode_query": "Tallahassee, Florida, United States",
         "distance_km": 0.0,
-        "us_bounds_ok": true,
-        "status": "VERIFIED",
-        "address_source": "FDD Exhibit C franchisee address: 3025 Southshore Circle, Tallahassee, FL 32312 (FDD Exhibit C)"
+        "status": "VERIFIED"
       },
       {
         "pin": 6,
@@ -552,16 +559,13 @@
           34.20732,
           -84.140193
         ],
-        "hq": false,
-        "verify_query": "Cumming, Georgia, United States",
-        "verify_coords": [
+        "geocoded": [
           34.20732,
           -84.140193
         ],
+        "geocode_query": "Cumming, Georgia, United States",
         "distance_km": 0.0,
-        "us_bounds_ok": true,
-        "status": "VERIFIED",
-        "address_source": "FDD Exhibit C franchisee address: Cumming (Amramp Atlanta) territory, FDD Exhibit C; outlet address 1274 Louisville Hwy., Goodlettsville, TN 37072"
+        "status": "VERIFIED"
       },
       {
         "pin": 7,
@@ -571,16 +575,13 @@
           43.616616,
           -116.200886
         ],
-        "hq": false,
-        "verify_query": "Boise, Idaho, United States",
-        "verify_coords": [
+        "geocoded": [
           43.616616,
           -116.200886
         ],
+        "geocode_query": "Boise, Idaho, United States",
         "distance_km": 0.0,
-        "us_bounds_ok": true,
-        "status": "VERIFIED",
-        "address_source": "FDD Exhibit C franchisee address: Boise (Amramp Boise) territory, FDD Exhibit C; outlet address 2375 South Cobalt Point Way, Suite 102, Meridian, ID 83642"
+        "status": "VERIFIED"
       },
       {
         "pin": 8,
@@ -590,16 +591,13 @@
           41.875562,
           -87.624421
         ],
-        "hq": false,
-        "verify_query": "Chicago, Illinois, United States",
-        "verify_coords": [
+        "geocoded": [
           41.875562,
           -87.624421
         ],
+        "geocode_query": "Chicago, Illinois, United States",
         "distance_km": 0.0,
-        "us_bounds_ok": true,
-        "status": "VERIFIED",
-        "address_source": "FDD Exhibit C franchisee address: Wheaton (Amramp Chicago and Northern Illinois) territory, FDD Exhibit C; outlet address 100 Bridge St., Suite 240, Wheaton, IL 60187"
+        "status": "VERIFIED"
       },
       {
         "pin": 9,
@@ -609,16 +607,13 @@
           38.254238,
           -85.759407
         ],
-        "hq": false,
-        "verify_query": "Louisville, Kentucky, United States",
-        "verify_coords": [
+        "geocoded": [
           38.254238,
           -85.759407
         ],
+        "geocode_query": "Louisville, Kentucky, United States",
         "distance_km": 0.0,
-        "us_bounds_ok": true,
-        "status": "VERIFIED",
-        "address_source": "FDD Exhibit C franchisee address: 3501 Bridgegate Circle, Louisville, KY 40272 (FDD Exhibit C)"
+        "status": "VERIFIED"
       },
       {
         "pin": 10,
@@ -628,16 +623,13 @@
           39.100105,
           -94.578142
         ],
-        "hq": false,
-        "verify_query": "Kansas City, Missouri, United States",
-        "verify_coords": [
+        "geocoded": [
           39.100105,
           -94.578142
         ],
+        "geocode_query": "Kansas City, Missouri, United States",
         "distance_km": 0.0,
-        "us_bounds_ok": true,
-        "status": "VERIFIED",
-        "address_source": "FDD Exhibit C franchisee address: 3106 Karnes Boulevard, Kansas City, MO 64111 (FDD Exhibit C)"
+        "status": "VERIFIED"
       },
       {
         "pin": 11,
@@ -647,20 +639,18 @@
           36.156312,
           -95.992752
         ],
-        "hq": false,
-        "verify_query": "Tulsa, Oklahoma, United States",
-        "verify_coords": [
+        "geocoded": [
           36.156312,
           -95.992752
         ],
+        "geocode_query": "Tulsa, Oklahoma, United States",
         "distance_km": 0.0,
-        "us_bounds_ok": true,
-        "status": "VERIFIED",
-        "address_source": "FDD Exhibit C franchisee address: 9152 East 102nd Street, Tulsa, OK 74133 (FDD Exhibit C)"
+        "status": "VERIFIED"
       }
     ]
   },
-  "pinsUpdatedAt": "2026-09-14T17:35:40Z",
+  "pinsUpdatedAt": "2026-09-15T01:38:47.467564+00:00",
   "miner": "amramp-build",
-  "build_date_utc": "2026-09-14"
+  "build_date_utc": "2026-09-14",
+  "risk_source": "existing risk_method prose in fields.json"
 }
